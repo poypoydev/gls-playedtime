@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>osurdum man</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+      body {
+        overflow: hidden;
+      }
+      @font-face {
+        font-family: "text";
+        src: url("./Akrobat-Regular.otf");
+      }
+      @font-face {
+        font-family: "title";
+        src: url("./Akrobat-Bold.otf");
+      }
+
+      .notifdiv {
+        width: 22vw;
+        height: 17vh;
+        position: absolute;
+        right: -24vw;
+        top: 8vh;
+        background-color: black;
+        border-radius: 5px;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: all 1s;
+      }
+
+      .notifdiv.show {
+        right: 2vw;
+        transition: all 1s;
+      }
+      .bold {
+        color: #75ffc0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="notifdiv">
+      <h1
+        style="
+          color: white;
+          font-family: title;
+
+          position: relative;
+          display: inline-block;
+          padding-left: 1vw;
+          padding-right: 1vw;
+          padding-top: 0.4vh;
+          padding-bottom: 0.4vh;
+          background-color: #7a30cf;
+          margin-left: 1vw;
+          border-radius: 5px;
+        "
+      >
+        Glorious Roleplay
+      </h1>
+      <p
+        class="bodytext"
+        style="
+          font-family: text;
+          color: white;
+          margin-left: 1vw;
+          margin-right: 1vw;
+          font-size: 1.3rem;
+          position: relative;
+          top: -2vh;
+        "
+      ></p>
+    </div>
+  </body>
+  <script>
+    const onSpawn = (saniye) => {
+      if (saniye > 0) {
+        const saat = Math.floor(saniye / 60 / 60);
+        const totaldakika = saniye / 60;
+        console.log("geldi");
+        const dakika = Math.floor(totaldakika % 60);
+        const div = $(".notifdiv");
+        $(".bodytext")
+          .html(`Merhaba Poyraz, Tekrardan Hoşgeldin! Bu sunucuda tam tamına
+        <span class="bold">${saat}</span> saat ve <span class="bold">${dakika}</span> dakika
+        geçirmişşin!`);
+        div.addClass("show");
+        setTimeout(() => {
+          div.removeClass("show");
+        }, 5000);
+      } else {
+        const text =
+          "Merhaba Poyraz, Glorious Roleplay'e Hoşgeldin! Başlaman için gereken itemleri envanterine koydum. İyi Oyunlar Dileriz!";
+        $(".bodytext").html(text);
+        const div = $(".notifdiv");
+        div.addClass("show");
+        setTimeout(() => {
+          div.removeClass("show");
+        }, 5000);
+      }
+    };
+
+    window.addEventListener("message", (event) => {
+      const data = event.data;
+      if (data.type == "onSpawn") {
+        onSpawn(data.saniye);
+      }
+    });
+  </script>
+</html>
+
+<!--  -->
